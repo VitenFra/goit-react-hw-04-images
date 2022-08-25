@@ -13,12 +13,12 @@ export default function Searchbar({onSubmit}) {
         event.preventDefault();
 
         if (searchQuery.trim() === '') {
-            Notiflix.Notify.warning('Please enter something!');
+            Notiflix.Notify.warning('Будь ласка, введіть щось!');
             return;
         }
 
         onSubmit(searchQuery);
-        setSearchQuery('');
+        
         
     };
 
@@ -43,7 +43,7 @@ export default function Searchbar({onSubmit}) {
             onChange={handleChange}
             autoComplete="off"
             autoFocus
-            placeholder="Search images and photos"
+            placeholder="Пошук зображень і фотографій"
             />
             </form>
         </header>
