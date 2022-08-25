@@ -1,37 +1,28 @@
-import React, { Component } from 'react';
+import { useEffect} from 'react';
 import s from './Modal.module.css';
 import PropTypes from 'prop-types';
 
-
-class Modal extends Component {
-
-    state = {};
-
-      componentDidMount() {
-    window.addEventListener('keydown', this.props.keyCloseModal)
-      }
+export default function Modal({ toogleModal, keyCloseModal, children }) {
     
-      componentWillUnmount() {
-    window.removeEventListener('keydown', this.props.keyCloseModal);
-      }
+    useEffect(() => {
+        window.addEventListener('keydown', keyCloseModal)
 
-    render() {
-        return (
-         <div className={s.Overlay} onClick={this.props.toogleModal}>
-             <div className={s.Modal}>
-               <img className={s.ModalImage} src={this.props.children} alt="" width={900} height={ 600} />
+        return () => {
+            window.removeEventListener('keydown', keyCloseModal);
+        }
+    }, [keyCloseModal]);
+
+    return (
+       <div className={s.Overlay} onClick={toogleModal}>
+              <div className={s.Modal}>
+                <img className={s.ModalImage} src={children} alt="" width={900} height={ 600} />
+          </div>
            </div>
-           </div>
-        )
-    }
+   ) 
 }
 
-
 Modal.propTypes = {
-    toogleModal: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    keyCloseModal: PropTypes.func.isRequired,
+    toogleModal: PropTypes.func,
+    children: PropTypes.node,
+    keyCloseModal: PropTypes.func,
 };
-  
-
-export default Modal;
